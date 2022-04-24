@@ -1,0 +1,23 @@
+<%-include('partials/header.ejs');-%>
+
+
+<form class="was-validated"  action="/edit" method="post">
+  <div class="mb-3">
+    <label for="validationTextarea" class="form-label "><h5>Title</h5></label>
+    <textarea class="form-control is-invalid " name="title" id="validationTextarea" placeholder="Enter the 'Title' of the content you'd like to edit, same as when published." required></textarea>
+    <div class="invalid-feedback">
+      Title has to be same as before.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary"  type="submit" >Edit</button>
+  </div>
+</form>
+
+
+
+
+
+
+<%-include('partials/footer.ejs');-%>

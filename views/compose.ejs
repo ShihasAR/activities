@@ -1,17 +1,83 @@
 <%-include('partials/header.ejs');-%>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
+
+
+
 <h1>Compose</h1>
-<form action="/compose" method="post">
+<form class="was-validated"  action="/compose" method="post">
+  <div class="mb-3">
+    <label for="validationTextarea" class="form-label ">Title</label>
+    <textarea class="form-control is-invalid " name="title" id="validationTextarea" placeholder="Required" required></textarea>
+    <div class="invalid-feedback">
+      Please enter a title.
+    </div>
+  </div>
+<label>Category</label>
+<br>
+  <div class="form-check">
+    <label class="radio-inline">
 
-  <label>Title</label><br>
-  <input type="text" name="title" class="col-lg-12"><br><br>
+    <input class="form-check-input" type="radio" value="Activities" name="flexRadioDefault" id="flexRadioDefault1" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+    data-bs-content= "Activities : Competetions students can participate in. (gets added to the ACTIVITIES Page)">
+    <label class="form-check-label" for="flexRadioDefault1">
+      Activities
+    </label>
+    </label>
+    <label class="radio-inline">
+    <input class="form-check-input" type="radio" value="Events" name="flexRadioDefault" id="flexRadioDefault2" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+    data-bs-content= "Events : Guest Talks, Seminars, etc. That students can attend (gets added to the EVENTS Page)">
+   <label class="form-check-label ev" for="flexRadioDefault2" >
+      Events
+    </label>
 
-  <label>Post</label><br>
+    </label>
+  </div>
 
-  <textarea name="textbody" rows="4" cols="160"></textarea><br><br>
 
-  <button type="submit" class="btn btn-primary">Publish</button>
+<br>
+
+<div class="md-3" >
+  <label for="validationCustom04" class="form-label">Stream</label>
+  <select class="form-select" id="validationCustom04" name = "stream" style="width: 160px;padding-bottom: 5px;padding-top: 5px;height: 37px;padding-right: 10px;"  data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+  data-bs-content= "The Event/Activity is open for students of which branch (All refers to 'open for all')"required>
+
+    <option class="ch">All</option>
+    <option class="ch" >Science</option>
+    <option class="ch" >Commerce</option>
+  </select>
+
+  <div class="invalid-feedback">
+    Please select a category.
+  </div>
+</div>
+<br>
+
+
+      <div class="mb-3">
+        <label for="validationTextarea" class="form-label ">Body</label>
+        <textarea class="form-control is-invalid textbody" name="textbody" id="validationTextarea" placeholder="Required" required></textarea>
+        <div class="invalid-feedback">
+          Please enter description.
+        </div>
+      </div>
+
+  <div class="mb-3">
+    <button class="btn btn-primary"  type="submit" >Publish</button>
+  </div>
 
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+      var popoverElements = document.querySelectorAll('[data-bs-toggle="popover"]')
+      for (const popoverEl of popoverElements) {
+        new bootstrap.Popover(popoverEl)
+      }
+    </script>
 
 <%-include('partials/footer.ejs');-%>

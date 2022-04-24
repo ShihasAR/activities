@@ -1,13 +1,7 @@
-
 <%-include('partials/header.ejs');-%>
 
-<h1>Categories</h1>
+<h1>Home</h1>
 <p><%= content %></p>
-<% posts.forEach(function(post){ %>
-   <h1><%=post["title"]%></h1>
-   <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
-<% }); %>
-
 
 
 <%-include('partials/footer.ejs');-%>

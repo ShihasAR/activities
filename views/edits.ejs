@@ -1,0 +1,24 @@
+<%-include('partials/header.ejs');-%>
+
+
+
+
+
+<form action="/edits" method="post">
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1"><h4>Title</h4></label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="t"><%=comp_array["title"]%></textarea>
+  </div>
+  <div class="form-group">
+      <label for="exampleFormControlTextarea2"><h4>Body</h4></label>
+      <br>
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="edited"><%=comp_array["textbody"]%></textarea>
+    </div>
+  <br>
+  <div class="mb-3">
+    <button class="btn btn-primary"  type="submit" >Save Changes</button>
+  </div>
+</form>
+
+
+<%-include('partials/footer.ejs');-%>
