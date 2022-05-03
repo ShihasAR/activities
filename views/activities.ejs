@@ -22,9 +22,9 @@
 
         <% posts.forEach(function(post) { %>
         <%  if (post["stream"]==="All" && post["category"]==="Activities")  { %>
-          
+
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
           <br>
         <% }}); %>
       </div>
@@ -44,7 +44,7 @@
         <%  if (post["stream"]==="Commerce" && post["category"]==="Activities") { %>
 
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
            <br>
         <% }}); %>
       </div>
@@ -64,7 +64,7 @@
         <%  if (post["stream"]==="Science" && post["category"]==="Activities") { %>
 
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
          <br>
         <% }}); %>
       </div>

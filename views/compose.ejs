@@ -8,19 +8,20 @@
 <h1>Compose</h1>
 <form class="was-validated"  action="/compose" method="post">
   <div class="mb-3">
-    <label for="validationTextarea" class="form-label ">Title</label>
-    <textarea class="form-control is-invalid " name="title" id="validationTextarea" placeholder="Required" required></textarea>
+    <label for="validationTextarea" class="form-label"><h4>Title</h4></label> <br>
+    <textarea class="form-control textbody custom-control-input" name="title" id="validationTextarea" placeholder="Required" required></textarea>
+
     <div class="invalid-feedback">
       Please enter a title.
     </div>
   </div>
-<label>Category</label>
+<label class="form-label"><h4>Category</h4></label>
 <br>
   <div class="form-check">
     <label class="radio-inline">
 
-    <input class="form-check-input" type="radio" value="Activities" name="flexRadioDefault" id="flexRadioDefault1" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
-    data-bs-content= "Activities : Competetions students can participate in. (gets added to the ACTIVITIES Page)">
+    <input class="form-check-input" type="radio" value="Activities" name="flexRadioDefault" id="flexRadioDefault1" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+    data-bs-content= "Activities : Competetions students can participate in. (gets added to the ACTIVITIES Page)" checked>
     <label class="form-check-label" for="flexRadioDefault1">
       Activities
     </label>
@@ -39,28 +40,44 @@
 <br>
 
 <div class="md-3" >
-  <label for="validationCustom04" class="form-label">Stream</label>
+  <label for="validationCustom04" class="form-label"><h4>Stream</h4></label>
   <select class="form-select" id="validationCustom04" name = "stream" style="width: 160px;padding-bottom: 5px;padding-top: 5px;height: 37px;padding-right: 10px;"  data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
-  data-bs-content= "The Event/Activity is open for students of which branch (All refers to 'open for all')"required>
+  data-bs-content= "The Event/Activity is open to students of which branch (#All refers to 'open for all')" required>
 
     <option class="ch">All</option>
     <option class="ch" >Science</option>
     <option class="ch" >Commerce</option>
   </select>
+  <div class="valid-feedback">
+       Looks good!
+     </div>
 
   <div class="invalid-feedback">
     Please select a category.
   </div>
 </div>
 <br>
+<label  class="form-label"><h4>Date</h4></label> <br>
+
+<input type="date" name="date" value="">
+<br>
+
+
+  <div class="col-md-4 mb-3">
+      <br>
+      <label for="validationDefault01" class="form-label"><h4>Venue</h4></label><br>
+      <textarea name="venue" rows="2" cols="60"></textarea>
+    </div>
 
 
       <div class="mb-3">
-        <label for="validationTextarea" class="form-label ">Body</label>
-        <textarea class="form-control is-invalid textbody" name="textbody" id="validationTextarea" placeholder="Required" required></textarea>
+      
+        <label for="validationTextarea" class="form-label "><h4>Body</h4></label>
+        <textarea class="form-control textbody custom-control-input" name="textbody" id="validationTextarea" placeholder="Required" required></textarea>
         <div class="invalid-feedback">
           Please enter description.
         </div>
+
       </div>
 
   <div class="mb-3">

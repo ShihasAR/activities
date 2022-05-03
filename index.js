@@ -26,6 +26,8 @@ app.use(session({
 
 let all_posts = [];
 let title_to_edit = [];
+let site = [];
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -40,6 +42,8 @@ const postSchema = mongoose.Schema({
   textbody: String,
   category: String,
   stream: String,
+  date: String,
+  venue: String,
   googleId: String
 });
 
@@ -100,8 +104,8 @@ app.get('/auth/google/activities',
     failureRedirect: '/login'
   }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/compose');
+    // Successful authentication, redirect compose.
+    res.redirect(site[0]);
   });
 
 app.get("/login", function(req, res) {
@@ -116,7 +120,7 @@ app.get("/events", function(req, res) {
   User.find({}, function(err, result) {
     res.render("events", {
       "content": aboutContent,
-      "posts": all_posts
+      "posts": result
     });
   });
 });
@@ -126,17 +130,18 @@ app.get("/events", function(req, res) {
 
 app.get("/posts/:topic", function(req, res) {
   let the_topic = lodash.lowerCase(req.params.topic);
-  User.find({}, function(err, result) {
-    for (var i = 0; i < result.length; i++) {
+  User.find({
+    _id: req.params.topic
+  }, function(err, result) {
+    if (!err) {
+      res.render("post", {
+        "comp_array": result[0]
+      });
 
-      if (lodash.lowerCase(result[i].title) === the_topic) {
-        res.render("post", {
-          "comp_array": result[i]
-        });
-      }
     }
   });
 });
+
 
 app.get("/contact", function(req, res) {
   res.render("contact", {
@@ -148,7 +153,7 @@ app.get("/activities", function(req, res) {
   User.find({}, function(err, result) {
     res.render("activities", {
       "content": aboutContent,
-      "posts": all_posts
+      "posts": result
     });
   });
 
@@ -158,6 +163,7 @@ app.get("/compose", function(req, res) {
   if (req.isAuthenticated()) {
     res.render("compose");
   } else {
+    site[0] = "/compose" ;
     res.redirect("/login");
   }
 });
@@ -165,10 +171,12 @@ app.get("/compose", function(req, res) {
 
 
 app.post("/compose", function(req, res) {
+
   const title_found = req.body.title;
   const tb = req.body.textbody;
   const flex = req.body.flexRadioDefault;
   const st = req.body.stream;
+
 
 
   User.findById(req.user._id, function(err, foundUser) {
@@ -176,15 +184,20 @@ app.post("/compose", function(req, res) {
       console.log(err);
     } else {
       if (foundUser) {
-        foundUser.title = title_found;
-        foundUser.textbody = tb;
-        foundUser.category = flex;
-        foundUser.stream = st;
-
-        all_posts.push(foundUser);
-        foundUser.save(function() {
+        const nuser = new User({
+          title: title_found,
+          textbody: tb,
+          category: flex,
+          stream: st,
+          date: req.body.date,
+          venue: req.body.venue,
+          googleId: foundUser.googleId
+        });
+        all_posts.push(nuser);
+        nuser.save(function() {
           res.redirect("/");
         });
+
       }
     }
   });
@@ -225,11 +238,12 @@ app.post("/login", function(req, res) {
         if (result.username === user.username) {
 
           passport.authenticate("local")(req, res, function() {
-            res.redirect("/compose")
+            res.redirect(site[0]);
+            site = [];
           });
         } else {
-          res.redirect("/register");
-          console.log("user not found,register here");
+          res.render("loginerror");
+
         }
       });
     } else {
@@ -247,49 +261,120 @@ app.get("/logout", function(req, res) {
 app.post("/edits", function(req, res) {
   let find = title_to_edit[title_to_edit.length - 1];
   let updated_entry = req.body.edited;
-User.findById(req.user._id, function(err, foundUser) {
-  if (!err) {
+
+  User.findOneAndUpdate({
+    _id: find
+  }, {
+    $set: {
+      title: req.body.t,
+      textbody: updated_entry,
+      category: req.body.flexRadioDefault,
+      stream: req.body.stream,
+      date: req.body.date,
+      venue: req.body.venue
 
 
-  if(foundUser){
-  foundUser.title = find;
-  foundUser.textbody = updated_entry;
-  foundUser.save();
-  for (var i = 0; i < all_posts.length; i++) {
-    if(all_posts[i]["title"] === find){
-      all_posts[i]["textbody"] = updated_entry;
     }
-  }
-}}} );
+  },{new: true}, function(err, res) {
+    if (!err) {
+      console.log("Updated");
+
+
+    }
+  });
+
   title_to_edit = [];
   res.redirect("/");
 });
+
 
 app.get("/edit", function(req, res) {
   if (req.isAuthenticated()) {
     res.render("edit");
   } else {
+    site[0] = "/edit" ;
+    res.redirect("/login");
+  }
+});
+
+app.get("/delete", function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render("delete");
+  } else {
+    site[0] = "/delete" ;
     res.redirect("/login");
   }
 });
 
 app.post("/edit", function(req, res) {
-  let the_title = lodash.lowerCase(req.body.title);
   User.findById(req.user._id, function(err, foundUser) {
     if (!err) {
-      if (lodash.lowerCase(foundUser.title) === the_title) {
+      User.find({
+        title: req.body.title
+      }, function(error, result) {
+        if (!error) {
 
-            title_to_edit.push(foundUser.title);
-            res.render("edits", {
-              "comp_array": foundUser
-            });
+          if (result.length === 0) {
+
+              res.render("error");
+
           }
+          else {
+          if (foundUser.googleId === result[0].googleId) {
 
-     else {
-        console.log("No such post exists (check the spelling) or the post wasn't uploaded by you (make sure you logged in with the same details as the time of upload) and you cannot make edits to it.");
-      } } });
+            title_to_edit.push(result[0]._id);
+            res.render("edits", {
+              "comp_array": result[0]
+            });
+
+          }}}
+          else {
+
+              res.render("error");
+
+          }
+        });
+      } else
+      {
+        console.log("main error" + err);
+      }
+});
+});
+
+app.post("/delete", function(req, res) {
+  
+  User.findById(req.user._id, function(err, foundUser) {
+    if (!err) {
+      if(foundUser){
+      User.find({title: req.body.title}, function(error,result){
+        if (!error){
+          if (result.length === 0) {
+
+              res.render("derror");
+
+          }
+          else {
+            if(foundUser.googleId === result[0].googleId){
+          User.findOneAndDelete({title: req.body.title},function(er,resp){
+            if(!er){
+            res.redirect("/");
+          } else{
+            console.log(er);
+          }});
+        }
+          }
+        }});
+      }}
+      else
+      {
+        console.log("main error" + err);
+      }
+
+    });
 
 });
+
+
 
 
 app.listen(3000, function() {

@@ -3,22 +3,106 @@
 
 
 
+<br>
+<div class="alert alert-info" role="alert">
+  If Any of the Fields is not edited/changed it will assume the same entry as the previously uploaded post.
+</div>
+
+
 
 <form action="/edits" method="post">
+  <br>
   <div class="form-group">
     <label for="exampleFormControlTextarea1"><h4>Title</h4></label>
     <textarea class="form-control" id="exampleFormControlTextarea1" name="t"><%=comp_array["title"]%></textarea>
   </div>
+  <br>
   <div class="form-group">
       <label for="exampleFormControlTextarea2"><h4>Body</h4></label>
       <br>
       <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" name="edited"><%=comp_array["textbody"]%></textarea>
     </div>
+    <br>
+    <label  class="form-label"><h4>Date</h4></label> <br>
+
+    <input type="date" name="date" value=<%=comp_array["date"]%>>
+    <br>
+    <br>
+    <div class="col-md-4 mb-3">
+        <br>
+        <label for="validationDefault01" class="form-label"><h4>Venue</h4></label><br>
+        <textarea name="venue" rows="2" cols="60"><%=comp_array["venue"]%></textarea>
+      </div>
+      <br>
+  <br>
+  <label><h4>Category</h4></label>
+  <br>
+  <div class="form-check">
+
+
+
+    <label class="radio-inline">
+
+    <input class="form-check-input" type="radio"  value="Activities" name="flexRadioDefault" id="flexRadioDefault1" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"
+    data-bs-content= "Activities : Competetions students can participate in. (gets added to the ACTIVITIES Page)" >
+    <label class="form-check-label" for="flexRadioDefault1">
+      Activities
+    </label>
+    </label>
+    <label class="radio-inline">
+
+
+    <input class="form-check-input" type="radio" value="Events"  name="flexRadioDefault" id="flexRadioDefault2" data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+    data-bs-content= "Events : Guest Talks, Seminars, etc. That students can attend (gets added to the EVENTS Page)" >
+   <label class="form-check-label ev" for="flexRadioDefault2" >
+      Events
+    </label>
+
+    </label>
+  </div>
+  <br>
+
+  <div class="md-3" >
+    <label for="validationCustom04" class="form-label"><h4>Stream</h4></label>
+    <select class="form-select" id="validationCustom04" name = "stream" style="width: 160px;padding-bottom: 5px;padding-top: 5px;height: 37px;padding-right: 10px;"  data-bs-trigger="hover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+    data-bs-content= "The Event/Activity is open to students of which branch (#All refers to 'open for all')" >
+
+      <option class="ch" id="all">All</option>
+      <option class="ch" id="science">Science</option>
+      <option class="ch" id="commerce">Commerce</option>
+    </select>
+
+    <div class="invalid-feedback">
+      Please select a category.
+    </div>
+  </div>
   <br>
   <div class="mb-3">
-    <button class="btn btn-primary"  type="submit" >Save Changes</button>
+    <button class="btn btn-primary"  type="submit" onclick="displayRadioValue()">Save Changes</button>
   </div>
 </form>
+<script>
+ <% if (comp_array["category"] === "Activities"){ %>
 
+document.getElementById("flexRadioDefault1").checked = "checked";
+
+ <%  } else { %>
+document.getElementById("flexRadioDefault2").checked = "checked";
+
+ <%  } %>
+ <% if (comp_array["stream"] === "All"){ %>
+
+document.getElementById("all").selected = "selected";
+<%  } %>
+<% if (comp_array["stream"] === "Science"){ %>
+
+document.getElementById("science").selected = "selected";
+ <%  } %>
+ <% if (comp_array["stream"] === "Commerce"){ %>
+
+document.getElementById("commerce").selected = "selected";
+<%  } %>
+
+ </script>
 
 <%-include('partials/footer.ejs');-%>

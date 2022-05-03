@@ -1,8 +1,16 @@
 <%-include('partials/header.ejs');-%>
 
+<div style="text-align:center;">
 
-<h1><%=comp_array["title"]%></h1>
-<p><%=comp_array["textbody"]%></p>
+
+<h1 class="pt"><%=comp_array["title"]%></h1>
+
+<p class="postp1"><strong>Date: <%=comp_array["date"]%></strong></p>
+<p class="postp2"><strong>Venue: <%=comp_array["venue"]%></strong></p>
+</div>
+<br>
+<br>
+<p class="tbd"><%=comp_array["textbody"]%></p>
 
 
 <%-include('partials/footer.ejs');-%>

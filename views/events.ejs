@@ -19,9 +19,10 @@
         <%  if (post["stream"]==="All" && post["category"]==="Events")  { %>
 
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
         <br>
         <% }}); %>
+        <br>
       </div>
     </div>
   </div>
@@ -38,9 +39,10 @@
         <%  if (post["stream"]==="Commerce" && post["category"]==="Events") { %>
 
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
         <br>
         <% }}); %>
+        <br>
       </div>
     </div>
   </div>
@@ -57,9 +59,10 @@
         <%  if (post["stream"]==="Science" && post["category"]==="Events") { %>
 
         <h4><%= post["title"] %></h4>
-        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post["title"]%>">ReadMore</a>
+        <p class="home_body"><%=post["textbody"].substring(0,101) + "  ..." %></p> <a href="/posts/<%=post._id%>">ReadMore</a> <br>
         <br>
         <% }}); %>
+          <br>
       </div>
     </div>
   </div>
